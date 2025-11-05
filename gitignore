@@ -23,3 +23,13 @@ packages/
 
 # Docker
 docker-compose.override.yml
+
+
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
+crash.log
+crash.*.log
+*.tfplan
