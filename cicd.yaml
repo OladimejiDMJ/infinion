@@ -1,0 +1,33 @@
+name: build and push to acr
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Azure Login (OIDC)
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Login to ACR
+      run: az acr login -n infinion
+
+    - name: Build Docker image
+      run: docker build -t infinion.azurecr.io/weather-api:${{ github.sha }} .
+
+    - name: Push image to ACR
+      run: docker push infinion.azurecr.io/weather-api:${{ github.sha }}
