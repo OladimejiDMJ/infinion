@@ -1,0 +1,25 @@
+# .NET build
+bin/
+obj/
+publish/
+*.dll
+*.exe
+*.pdb
+
+# NuGet
+*.nupkg
+packages/
+
+# VS / Rider / local IDE
+.vs/
+.idea/
+*.user
+*.rsuser
+*.suo
+
+# Logs/cache/temp
+*.log
+*.cache
+
+# Docker
+docker-compose.override.yml
